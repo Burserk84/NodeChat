@@ -5,21 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>چت آنلاین</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    ul { list-style-type: none; margin: 0; padding: 0; }
-    li { margin: 10px 0; }
-    form { position: fixed; bottom: 0; width: 100%; background: #f9f9f9; padding: 10px; }
-    input { width: 80%; padding: 10px; }
-    button { padding: 10px 20px; }
-    #messages { margin-bottom: 50px; padding: 10px; overflow-y: scroll; max-height: 70vh; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #4caf50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .chat-messages {
+      padding: 15px;
+      height: 300px;
+      overflow-y: scroll;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .chat-messages div {
+      margin-bottom: 10px;
+    }
+
+    form {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+    }
+
+    button {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .login-container input {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-container button {
+      padding: 10px 15px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
-  <ul id="messages"></ul>
-  <form id="form" action="">
-    <input id="input" autocomplete="off" placeholder="پیام خود را وارد کنید..." />
-    <button>ارسال</button>
-  </form>
+  <div class="login-container" id="login-container">
+    <input type="text" id="username" placeholder="نام کاربری خود را وارد کنید">
+    <button id="login-btn">ورود</button>
+  </div>
+
+  <div class="chat-container" id="chat-container" style="display: none;">
+    <div class="chat-header">چت آنلاین</div>
+    <div class="chat-messages" id="messages"></div>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" placeholder="پیام خود را وارد کنید..." />
+      <button>ارسال</button>
+    </form>
+  </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
 </body>

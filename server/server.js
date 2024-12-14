@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
 
   // ذخیره نام کاربری
   socket.on('set username', (username) => {
-    username = escapeHTML(username || 'ناشناس'); // امن‌سازی نام کاربری
+    username = escapeHTML(username || 'ناشناس');
     socket.username = username;
     onlineUsers.add(socket.username);
     io.emit('update users', Array.from(onlineUsers));
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
 
   // دریافت و ارسال پیام
   socket.on('chat message', (msg) => {
-    msg = escapeHTML(msg); // امن‌سازی پیام
+    msg = escapeHTML(msg);
     const time = new Date().toLocaleTimeString();
     const data = {
       username: socket.username || 'ناشناس',
@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
     // ذخیره پیام در تاریخچه
     messageHistory.push(data);
     if (messageHistory.length > MAX_HISTORY) {
-      messageHistory.shift(); // حذف قدیمی‌ترین پیام
+      messageHistory.shift();
     }
 
     io.emit('chat message', data);

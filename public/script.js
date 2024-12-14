@@ -1,27 +1,48 @@
 const socket = io();
 
-// گرفتن عناصر DOM
+const loginContainer = document.getElementById('login-container');
+const chatContainer = document.getElementById('chat-container');
+const loginBtn = document.getElementById('login-btn');
+const usernameInput = document.getElementById('username');
+
 const messages = document.getElementById('messages');
 const form = document.getElementById('form');
 const input = document.getElementById('input');
 
+let username = '';
+
 // نمایش پیام در صفحه
 function appendMessage(data) {
-  const item = document.createElement('li');
+  const item = document.createElement('div');
   item.innerHTML = `<strong>${data.username}</strong> [${data.time}]: ${data.message}`;
   messages.appendChild(item);
-  window.scrollTo(0, document.body.scrollHeight);
+  messages.scrollTop = messages.scrollHeight;
 }
 
 // دریافت تاریخچه پیام‌ها
 socket.on('message history', (history) => {
-  messages.innerHTML = ''; // پاک کردن پیام‌های قبلی
+  messages.innerHTML = '';
   history.forEach(appendMessage);
 });
 
 // دریافت پیام جدید از سرور
 socket.on('chat message', (data) => {
   appendMessage(data);
+});
+
+// مدیریت لاگین
+loginBtn.addEventListener('click', () => {
+  const enteredUsername = usernameInput.value.trim();
+  if (!enteredUsername) {
+    alert('لطفاً نام کاربری وارد کنید!');
+    return;
+  }
+
+  username = enteredUsername;
+  socket.emit('set username', username);
+
+  loginContainer.style.display = 'none';
+  chatContainer.style.display = 'block';
 });
 
 // ارسال پیام به سرور
