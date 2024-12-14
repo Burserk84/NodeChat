@@ -13,7 +13,11 @@ app.use(express.static('public'));
 const onlineUsers = new Set();
 
 // حداکثر تعداد کاربران مجاز
-const MAX_USERS = 100;
+const MAX_USERS = 10;
+
+// ذخیره آخرین پیام‌ها
+const messageHistory = [];
+const MAX_HISTORY = 10;
 
 // تابع امن‌سازی پیام‌ها
 function escapeHTML(str) {
@@ -34,6 +38,9 @@ io.on('connection', (socket) => {
 
   console.log('یک کاربر متصل شد.');
 
+  // ارسال تاریخچه پیام‌ها به کاربر جدید
+  socket.emit('message history', messageHistory);
+
   // ذخیره نام کاربری
   socket.on('set username', (username) => {
     username = escapeHTML(username || 'ناشناس'); // امن‌سازی نام کاربری
@@ -51,6 +58,13 @@ io.on('connection', (socket) => {
       message: msg,
       time,
     };
+
+    // ذخیره پیام در تاریخچه
+    messageHistory.push(data);
+    if (messageHistory.length > MAX_HISTORY) {
+      messageHistory.shift(); // حذف قدیمی‌ترین پیام
+    }
+
     io.emit('chat message', data);
   });
 
