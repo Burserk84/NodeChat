@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html lang="fa">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>چت آنلاین</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="chat-container">
-      <div class="chat-header">
-        <h1>چت آنلاین</h1>
-        <p>کاربران آنلاین: <span id="online-count">0</span></p>
-      </div>
-      <div class="chat-messages" id="messages"></div>
-      <form id="chat-form">
-        <input
-          id="message-input"
-          placeholder="پیام خود را وارد کنید..."
-          autocomplete="off"
-          required
-        />
-        <button type="submit">ارسال</button>
-      </form>
-    </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>چت آنلاین</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    ul { list-style-type: none; margin: 0; padding: 0; }
+    li { margin: 10px 0; }
+    form { position: fixed; bottom: 0; width: 100%; background: #f9f9f9; padding: 10px; }
+    input { width: 80%; padding: 10px; }
+    button { padding: 10px 20px; }
+    #messages { margin-bottom: 50px; padding: 10px; overflow-y: scroll; max-height: 70vh; }
+  </style>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" placeholder="پیام خود را وارد کنید..." />
+    <button>ارسال</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>

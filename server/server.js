@@ -1,4 +1,3 @@
-// server/server.js
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -13,7 +12,7 @@ app.use(express.static('public'));
 const onlineUsers = new Set();
 
 // حداکثر تعداد کاربران مجاز
-const MAX_USERS = 10;
+const MAX_USERS = 100;
 
 // ذخیره آخرین پیام‌ها
 const messageHistory = [];
